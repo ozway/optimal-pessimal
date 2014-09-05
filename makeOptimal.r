@@ -1,23 +1,16 @@
-source("findcodons.r")
+source("config.r")
+source("readEta.r")
 source("writing.r")
 
 
-#GLOBAL VARIABLES
-infile <- "ecoli.fasta"
-optimalout <- "optimalEcoli.fasta"
-
-
-
-matrices <- findcodons();
+matrices <- readEta();
 
 #Here "MIN" and "MAX" refer to minimum ROC and maximum ROC
-min <- matrices$minmatrix;
 max <- matrices$maxmatrix;
 
-print(min);
 print(max);
 
-aminoacid <- min[,1];
+aminoacid <- max[,1];
 
 #I'm only interested in codons that have synonyms. They're the only ones I have eta values for.
 synonyms <-  list(
@@ -47,7 +40,7 @@ synonyms <-  list(
 
 
 
-sequence <- read.seq("ecoli.fasta");
+sequence <- read.seq(cfg$genome);
 optimal <- sequence;
 
 
@@ -76,4 +69,4 @@ for(index in 1:length(sequence[[gene]])/3){
 
 }#end the genome
 
-write.seq(optimal, optimalout)
+write.seq(optimal, cfg$optimalfile)

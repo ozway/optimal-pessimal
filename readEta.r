@@ -1,4 +1,4 @@
-findcodons <- function(etafile = "xobs.bmat", geneoptimal = "optEcoli", genepessimal = "pessEcoli")
+readEta <- function(etafile = cfg$etafile)
 {
 etadata <- read.csv(etafile, header=TRUE)
 

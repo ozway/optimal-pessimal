@@ -1,14 +1,8 @@
-source("findcodons.r")
+source("config.r")
+source("readEta.r")
 source("writing.r")
 
-
-#GLOBAL VARIABLES
-infile <- "ecoli.fasta"
-pessimalout <- "pessimalEcoli.fasta"
-
-
-
-matrices <- findcodons();
+matrices <- readEta();
 
 #Here "MIN" and "MAX" refer to minimum ROC and maximum ROC
 min <- matrices$minmatrix;
@@ -47,7 +41,7 @@ synonyms <-  list(
 
 
 
-sequence <- read.seq("ecoli.fasta");
+sequence <- read.seq(cfg$genome);
 pessimal <- sequence;
 
 
@@ -76,4 +70,4 @@ for(index in 1:length(sequence[[gene]])/3){
 
 }#end the genome
 
-write.seq(pessimal, pessimalout)
+write.seq(pessimal, cfg$pessimalfile)
