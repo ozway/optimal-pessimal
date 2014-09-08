@@ -4,14 +4,11 @@ source("writing.r")
 
 matrices <- readEta();
 
-#Here "MIN" and "MAX" refer to minimum ROC and maximum ROC
-min <- matrices$minmatrix;
-max <- matrices$maxmatrix;
+worstEta <- matrices$pessimalMatrix;    #worstEta means the least fit codons
 
-print(min);
-print(max);
+print(worstEta);
 
-aminoacid <- min[,1];
+aminoacid <- worstEta[,1];
 
 #I'm only interested in codons that have synonyms. They're the only ones I have eta values for.
 synonyms <-  list(
@@ -44,9 +41,10 @@ synonyms <-  list(
 sequence <- read.seq(cfg$genome);
 pessimal <- sequence;
 
+downgradeCount <- 0;
 
-for(gene in 1:length(sequence)){
 #for(gene in 1:3){
+for(gene in 1:length(sequence)){
 
 for(index in 1:length(sequence[[gene]])/3){
 	index <- index*3 + 1;
@@ -60,10 +58,19 @@ for(index in 1:length(sequence[[gene]])/3){
 		}else if(j == length(synonyms)){j=0; break;}
 	}
 	
+
+        #If the codon has a synonym...
 	if(j != 0){
-		pessimal[[gene]][index] <- substr(max[j,2],1,1);
-		pessimal[[gene]][index+1] <- substr(max[j,2],2,2);
-		pessimal[[gene]][index+2] <- substr(max[j,2],3,3);
+
+if(substr(worstEta[j,2],1,3) !=
+paste(sequence[[gene]][index], sequence[[gene]][index+1], sequence[[gene]][index+2], sep="")){
+                        downgradeCount <- downgradeCount + 1;
+        }else{didntDowngrade <- didntDowngrade + 1}
+
+
+		pessimal[[gene]][index] <- substr(worstEta[j,2],1,1);
+		pessimal[[gene]][index+1] <- substr(worstEta[j,2],2,2);
+		pessimal[[gene]][index+2] <- substr(worstEta[j,2],3,3);
 	}
 
 }#end this gene
@@ -71,3 +78,7 @@ for(index in 1:length(sequence[[gene]])/3){
 }#end the genome
 
 write.seq(pessimal, cfg$pessimalfile)
+
+print( paste(downgradeCount, "codons downgraded",
+        (100 * downgradeCount) %/% (downgradeCount+didntDowngrade), "%") );
+

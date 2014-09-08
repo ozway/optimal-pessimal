@@ -2,15 +2,13 @@ source("config.r")
 source("readEta.r")
 source("writing.r")
 
-
 matrices <- readEta();
 
-#Here "MIN" and "MAX" refer to minimum ROC and maximum ROC
-max <- matrices$maxmatrix;
+bestEta <- matrices$optimalMatrix;      #bestEta means the fittest codons
 
-print(max);
+print(bestEta);
 
-aminoacid <- max[,1];
+aminoacid <- bestEta[,1];
 
 #I'm only interested in codons that have synonyms. They're the only ones I have eta values for.
 synonyms <-  list(
@@ -43,9 +41,10 @@ synonyms <-  list(
 sequence <- read.seq(cfg$genome);
 optimal <- sequence;
 
+upgradeCount <- 0;
 
-for(gene in 1:length(sequence)){
 #for(gene in 1:3){
+for(gene in 1:length(sequence)){
 
 for(index in 1:length(sequence[[gene]])/3){
 	index <- index*3 + 1;
@@ -59,10 +58,19 @@ for(index in 1:length(sequence[[gene]])/3){
 		}else if(j == length(synonyms)){j=0; break;}
 	}
 	
+
+	#If the codon has a synonym...
 	if(j != 0){
-		optimal[[gene]][index] <- substr(min[j,2],1,1);
-		optimal[[gene]][index+1] <- substr(min[j,2],2,2);
-		optimal[[gene]][index+2] <- substr(min[j,2],3,3);
+
+if(substr(bestEta[j,2],1,3) !=
+paste(sequence[[gene]][index], sequence[[gene]][index+1], sequence[[gene]][index+2], sep="")){
+                        upgradeCount <- upgradeCount + 1;
+        }else{didntUpgrade <- didntUpgrade + 1}
+
+
+		optimal[[gene]][index] <- substr(bestEta[j,2],1,1);
+		optimal[[gene]][index+1] <- substr(bestEta[j,2],2,2);
+		optimal[[gene]][index+2] <- substr(bestEta[j,2],3,3);
 	}
 
 }#end this gene
@@ -70,3 +78,6 @@ for(index in 1:length(sequence[[gene]])/3){
 }#end the genome
 
 write.seq(optimal, cfg$optimalfile)
+
+print( paste(upgradeCount, "codons upgraded",
+        (100 * upgradeCount) %/% (upgradeCount+didntUpgrade), "%" ) );
