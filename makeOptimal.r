@@ -41,6 +41,7 @@ synonyms <-  list(
 sequence <- read.seq(cfg$genome);
 optimal <- sequence;
 
+didntUpgrade <- 0;
 upgradeCount <- 0;
 
 #for(gene in 1:3){

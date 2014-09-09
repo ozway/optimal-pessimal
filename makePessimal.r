@@ -41,6 +41,7 @@ synonyms <-  list(
 sequence <- read.seq(cfg$genome);
 pessimal <- sequence;
 
+didntDowngrade <- 0;
 downgradeCount <- 0;
 
 #for(gene in 1:3){
