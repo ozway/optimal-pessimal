@@ -80,6 +80,5 @@ paste(sequence[[gene]][index], sequence[[gene]][index+1], sequence[[gene]][index
 
 write.seq(pessimal, cfg$pessimalfile)
 
-print( paste(downgradeCount, "codons downgraded",
-        (100 * downgradeCount) %/% (downgradeCount+didntDowngrade), "%") );
-
+print( paste(downgradeCount, "codons (",
+        (100 * downgradeCount) %/% (downgradeCount+didntDowngrade), "%) downgraded") );

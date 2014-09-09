@@ -95,7 +95,7 @@ paste(sequence[[gene]][index], sequence[[gene]][index+1], sequence[[gene]][index
 write.seq(pessimal, cfg$pessimalfile)
 write.seq(optimal, cfg$optimalfile)
 
-print( paste(downgradeCount, "codons downgraded",
-	(100 * downgradeCount) %/% (downgradeCount+didntDowngrade), "%") );
-print( paste(upgradeCount, "codons upgraded",
-	(100 * upgradeCount) %/% (upgradeCount+didntUpgrade), "%" ) );
+print( paste(downgradeCount, "codons (",
+	(100 * downgradeCount) %/% (downgradeCount+didntDowngrade), "%) downgraded") );
+print( paste(upgradeCount, "codons (",
+	(100 * upgradeCount) %/% (upgradeCount+didntUpgrade), "%) upgraded" ) );

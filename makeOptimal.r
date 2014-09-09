@@ -80,5 +80,5 @@ paste(sequence[[gene]][index], sequence[[gene]][index+1], sequence[[gene]][index
 
 write.seq(optimal, cfg$optimalfile)
 
-print( paste(upgradeCount, "codons upgraded",
-        (100 * upgradeCount) %/% (upgradeCount+didntUpgrade), "%" ) );
+print( paste(upgradeCount, "codons (",
+        (100 * upgradeCount) %/% (upgradeCount+didntUpgrade), "%) upgraded" ) );

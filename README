@@ -18,7 +18,7 @@ How to run it:
 		or, to be really fancy 
 	Rscript makeBoth.r
 
-	makeOptimal and makePessimal took around 5-6 minutes on Gauley, makeBoth took around 8.
+	makeOptimal and makePessimal took around 7 minutes on Gauley, makeBoth took around 10.
 
 
 ------------
