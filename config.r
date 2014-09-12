@@ -6,7 +6,7 @@ cfg <- list(
 	genomefile = "ecoli.fasta",
 		#file containing the genome in question
 
-	optimalfile = "optimalEcoli.fasta",
-	pessimalfile = "pessimalEcoli.fasta"
+	optimalfile = "optimalecoli.fasta",
+	pessimalfile = "pessimalecoli.fasta"
 		#files where the optimal and/or pessimal genomes are written
 )

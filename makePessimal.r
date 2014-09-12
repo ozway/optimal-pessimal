@@ -47,7 +47,8 @@ downgradeCount <- 0;
 #for(gene in 1:3){
 for(gene in 1:length(sequence)){
 
-for(index in 1:length(sequence[[gene]])/3){
+#for(index in 0:59){
+for(index in 1:(length(sequence[[gene]])/3)){
 	index <- index*3 + 1;
 
 	#find out which synonym group the codon is in
@@ -63,15 +64,16 @@ for(index in 1:length(sequence[[gene]])/3){
         #If the codon has a synonym...
 	if(j != 0){
 
-if(substr(worstEta[j,2],1,3) !=
-paste(sequence[[gene]][index], sequence[[gene]][index+1], sequence[[gene]][index+2], sep="")){
+if(substr(worstEta[j,2],1,3) != temp){
+#paste(sequence[[gene]][index], sequence[[gene]][index+1], sequence[[gene]][index+2], sep="")){
                         downgradeCount <- downgradeCount + 1;
-        }else{didntDowngrade <- didntDowngrade + 1}
-
 
 		pessimal[[gene]][index] <- substr(worstEta[j,2],1,1);
 		pessimal[[gene]][index+1] <- substr(worstEta[j,2],2,2);
 		pessimal[[gene]][index+2] <- substr(worstEta[j,2],3,3);
+
+        }else{didntDowngrade <- didntDowngrade + 1}
+
 	}
 
 }#end this gene
