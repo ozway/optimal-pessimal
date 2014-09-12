@@ -48,7 +48,7 @@ downgradeCount <- 0;
 for(gene in 1:length(sequence)){
 
 #for(index in 0:59){
-for(index in 1:(length(sequence[[gene]])/3)){
+for(index in 0:(length(sequence[[gene]])/3)){
 	index <- index*3 + 1;
 
 	#find out which synonym group the codon is in
