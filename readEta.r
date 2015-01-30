@@ -32,11 +32,11 @@ optimalEta <- 0;
 	#loop through each group of synonyms
 	while ( eta$aa[x] == eta$aa[stop] 
 			&& x <= length(eta$aa) ) {
-		if(eta$values[x] < pessimalEta)
+		if(eta$values[x] > pessimalEta)
 		{
 			pessimalEta <- eta$values[x];
 			pessimalCodon <- eta$codon[x];
-		}else if(eta$values[x] > optimalEta)
+		}else if(eta$values[x] < optimalEta)
 		{
 			optimalEta <- eta$values[x];
 			optimalCodon <- eta$codon[x];
